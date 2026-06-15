@@ -1,0 +1,19 @@
+plugins {
+    id 'application'
+}
+
+group = 'com.gabriel2305'
+version = '1.0-snapshot'
+
+application {
+    mainClass = 'com.gabriel2305.Main'
+}
+
+repositories {
+    mavenCentral()
+}
+
+run {
+    standardInput = System.in
+    jvmArgs = ["-Dfile.encoding=UTF-8", "-Dstdout.encoding=UTF-8"]
+}
