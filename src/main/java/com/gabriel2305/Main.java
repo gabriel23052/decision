@@ -1,12 +1,13 @@
 package com.gabriel2305;
 
-import java.util.Scanner;
+import java.io.IOException;
 
 public class Main {
-    void main() {
-        Scanner scanner = new Scanner(System.in);
-        String name = scanner.nextLine();
-        IO.println("Hello " + name);
+    void main() throws IOException {
+        FilesystemHandler filesystemHandler = new FilesystemHandler();
+        filesystemHandler.getAvailableStories().forEach(IO::println);
+        System.out.println(filesystemHandler.getHistoryFileContent("example1"));
+        System.out.println(filesystemHandler.getHistoryFileContent("example2"));
     }
 }
 
