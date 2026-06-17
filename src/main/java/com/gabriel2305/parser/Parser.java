@@ -10,58 +10,60 @@ import java.util.stream.Collectors;
 public class Parser {
 
     private final char[] historyCharArr;
+    private int index = 0;
+    private final List<Fragment> fragmentList = new ArrayList<>();
 
     public Parser(String historyStr) {
         this.historyCharArr = historyStr.toCharArray();
     }
 
     public void createFragments() throws ParserException {
-
-        boolean insideNodeIdDeclaration = false;
-        List<Fragment> fragmentList = new ArrayList<>();
-        List<Character> contentBuffer = new ArrayList<>();
-
-        for (int i = 0; i < historyCharArr.length; i++) {
-            char actualChar = historyCharArr[i];
-
+        while(index < historyCharArr.length) {
+            char actualChar = getActualChar();
             if (actualChar == '[') {
-                insideNodeIdDeclaration = true;
                 fragmentList.add(new Fragment(FragmentType.OPENING_SQUARE_BRACKET));
+                index++;
+                parseNodeIdDeclaration();
                 continue;
             }
-
-            if (insideNodeIdDeclaration) {
-                if (actualChar == ']') {
-                    if (contentBuffer.isEmpty()) {
-                        throw new ParserException("Empty NODE_ID (position: " + i + ")");
-                    }
-                    String content = contentBuffer
-                            .stream()
-                            .map(String::valueOf)
-                            .collect(Collectors.joining());
-                    fragmentList.add(new Fragment(FragmentType.NODE_ID, content));
-                    fragmentList.add(new Fragment(FragmentType.CLOSING_SQUARE_BRACKET));
-                    insideNodeIdDeclaration = false;
-                    contentBuffer.clear();
-                    continue;
-                }
-                if (!validateNodeIdName(actualChar)) {
-                    throw new ParserException("Invalid char in NODE_ID (position: " + i + ")");
-                }
-                contentBuffer.add(actualChar);
+            if (actualChar == ']') {
+                fragmentList.add(new Fragment(FragmentType.CLOSING_SQUARE_BRACKET));
+                index++;
                 continue;
             }
-
             if (actualChar <= 32) {
+                index++;
                 continue;
             }
-
-            throw new ParserException("Invalid char (position: " + i + ")");
+            throw new ParserException("Invalid char (position: " + index + ")");
         }
         UI.log(fragmentList);
     }
 
-    private boolean validateNodeIdName(char value) {
+    private char getActualChar() {
+        return historyCharArr[index];
+    }
+
+    private void parseNodeIdDeclaration() {
+        List<Character> contentBuffer = new ArrayList<>();
+        while(getActualChar() != ']') {
+            if (!validateNodeIdName(getActualChar())) {
+                throw new ParserException("Invalid char in NODE_ID (position: " + index + ")");
+            }
+            contentBuffer.add(getActualChar());
+            index++;
+        }
+        if (contentBuffer.isEmpty()) {
+            throw new ParserException("Empty NODE_ID (position: " + index + ")");
+        }
+        String content = contentBuffer
+                .stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining());
+        fragmentList.add(new Fragment(FragmentType.NODE_ID, content));
+    }
+
+    private static boolean validateNodeIdName(char value) {
         return (value >= 48 && value <= 57) ||
                 (value >= 65 && value <= 90) ||
                 value == 95 ||

@@ -22,6 +22,9 @@ public class ParserTest {
             " [inval|dNodeId]",
             " [invalid-nodeId]",
             " [invalídNodeId]",
+            "[[invalidNodeId]",
+
+            "[[invalidNodeId]]",
     };
 
     private final String[] VALID_DHIS = {
@@ -30,6 +33,7 @@ public class ParserTest {
             "[validNodeId]  ",
             "[valid_NodeId]",
             "[valid_N0de1d]",
+            "[invalidNodeId]]",
     };
 
     @Test
