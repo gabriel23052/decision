@@ -32,6 +32,9 @@ public class Parser {
 
             if (insideNodeIdDeclaration) {
                 if (actualChar == ']') {
+                    if (contentBuffer.isEmpty()) {
+                        throw new ParserException("Empty NODE_ID (position: " + i + ")");
+                    }
                     String content = contentBuffer
                             .stream()
                             .map(String::valueOf)
