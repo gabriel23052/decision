@@ -27,7 +27,6 @@ public class ParserTest {
             "[validNodeId] inval1dtype ",
             "[validNodeId] iNvalid ",
             "[validNodeId] validnodetype (\"\") ",
-            "[validNodeId] validnodetype (\"Invalid\"text) ",
             "[validNodeId] validnodetype (\"Invalidtext) ",
             "[validNodeId] validnodetype (\"Invalidtext\"",
     };
@@ -58,7 +57,10 @@ public class ParserTest {
             [validNodeId2]
             validnodetypeb
             ("valid text")
-            """
+            """,
+            "[validNodeId] validnodetype (\"Valid Text\",\"Valid Text 2\")",
+            "[validNodeId] validnodetype (\"Valid Text\", validnodeid)",
+            "[validNodeId] validnodetype (\"Valid Text\", validnodeid,,,)"
     };
 
     @Test
