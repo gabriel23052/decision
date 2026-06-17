@@ -105,6 +105,10 @@ public class Parser {
 
     private void parseNodeParams() {
         while (getActualChar() != ')') {
+            if (getActualChar() <= ASCII_SPACE) {
+                index++;
+                continue;
+            }
             if (getActualChar() == '"') {
                 fragmentList.add(new Fragment(FragmentType.OPENING_QUOTES));
                 index++;
@@ -116,7 +120,8 @@ public class Parser {
                 index++;
                 continue;
             }
-            if (getActualChar() <= ASCII_SPACE) {
+            if (getActualChar() == ',') {
+                fragmentList.add(new Fragment(FragmentType.COMMA));
                 index++;
                 continue;
             };

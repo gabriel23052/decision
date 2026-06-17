@@ -12,4 +12,5 @@ public enum FragmentType {
     NODE_ID,
     NODE_TYPE,
     NODE_TEXT,
+    COMMA,
 }
