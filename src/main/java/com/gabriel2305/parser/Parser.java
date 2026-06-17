@@ -20,7 +20,7 @@ public class Parser {
     }
 
     public void createFragments() throws ParserException {
-        while(index < historyCharArr.length) {
+        while (index < historyCharArr.length) {
             char actualChar = getActualChar();
             if (actualChar == '[') {
                 fragmentList.add(new Fragment(FragmentType.OPENING_SQUARE_BRACKET));
@@ -33,11 +33,22 @@ public class Parser {
                 index++;
                 continue;
             }
+            if (actualChar == '(') {
+                fragmentList.add(new Fragment(FragmentType.OPENING_PARENTHESIS));
+                index++;
+                parseNodeParams();
+                continue;
+            }
+            if (actualChar == ')') {
+                fragmentList.add(new Fragment(FragmentType.CLOSING_PARENTHESIS));
+                index++;
+                continue;
+            }
             if (actualChar <= ASCII_SPACE) {
                 index++;
                 continue;
             }
-            if(validateNodeIdNameChar(actualChar)) {
+            if (validateNodeIdNameChar(actualChar)) {
                 parseNodeTypeDeclaration();
                 continue;
             }
@@ -47,12 +58,16 @@ public class Parser {
     }
 
     private char getActualChar() {
-        return historyCharArr[index];
+        try {
+            return historyCharArr[index];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ParserException("Ended unexpectedly");
+        }
     }
 
     private void parseNodeIdDeclaration() {
         List<Character> contentBuffer = new ArrayList<>();
-        while(getActualChar() != ']') {
+        while (getActualChar() != ']') {
             if (!validateNodeIdNameChar(getActualChar())) {
                 throw new ParserException("Invalid char in NODE_ID (position: " + index + ")");
             }
@@ -71,7 +86,7 @@ public class Parser {
 
     private void parseNodeTypeDeclaration() {
         List<Character> contentBuffer = new ArrayList<>();
-        while(getActualChar() > ASCII_SPACE) {
+        while (getActualChar() > ASCII_SPACE && getActualChar() != '(') {
             if (!validateNodeTypeChar(getActualChar())) {
                 throw new ParserException("Invalid char in NODE_TYPE (position: " + index + ")");
             }
@@ -86,6 +101,43 @@ public class Parser {
                 .map(String::valueOf)
                 .collect(Collectors.joining());
         fragmentList.add(new Fragment(FragmentType.NODE_TYPE, content));
+    }
+
+    private void parseNodeParams() {
+        while (getActualChar() != ')') {
+            if (getActualChar() == '"') {
+                fragmentList.add(new Fragment(FragmentType.OPENING_QUOTES));
+                index++;
+                parseNodeText();
+                if (getActualChar() != '"') {
+                    throw new ParserException("Text not closed (position: " + index + ")");
+                }
+                fragmentList.add(new Fragment(FragmentType.CLOSING_QUOTES));
+                index++;
+                continue;
+            }
+            if (getActualChar() <= ASCII_SPACE) {
+                index++;
+                continue;
+            };
+            throw new ParserException("Invalid node param (position: " + index + ")");
+        }
+    }
+
+    private void parseNodeText() {
+        List<Character> contentBuffer = new ArrayList<>();
+        while (getActualChar() != '"') {
+            contentBuffer.add(getActualChar());
+            index++;
+        }
+        if (contentBuffer.isEmpty()) {
+            throw new ParserException("Empty NODE_TEXT (position: " + index + ")");
+        }
+        String content = contentBuffer
+                .stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining());
+        fragmentList.add(new Fragment(FragmentType.NODE_TEXT, content));
     }
 
     private static boolean validateNodeTypeChar(char value) {

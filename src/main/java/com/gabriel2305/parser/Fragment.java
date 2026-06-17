@@ -8,7 +8,7 @@ public record Fragment(FragmentType type, String content) {
     @Override
     public String toString() {
         if(content == null) {
-            return type().name() + "(null)";
+            return type().name();
         }
         return type().name() + "(\"" + content + "\")";
     }
