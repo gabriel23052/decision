@@ -23,8 +23,9 @@ public class ParserTest {
             " [invalid-nodeId]",
             " [invalídNodeId]",
             "[[invalidNodeId]",
-
             "[[invalidNodeId]]",
+            "[validNodeId] inval1dtype ",
+            "[validNodeId] iNvalid ",
     };
 
     private final String[] VALID_DHIS = {
@@ -33,7 +34,13 @@ public class ParserTest {
             "[validNodeId]  ",
             "[valid_NodeId]",
             "[valid_N0de1d]",
-            "[invalidNodeId]]",
+            "[validNodeId]]",
+            "[validNodeId] validnodetype ",
+            "[validNodeId]  validnodetype ",
+            "[validNodeId]validnodetype ",
+            "[validNodeId]validnodetype  ",
+            "[validNodeId]v ",
+            "[validNodeId]  validnodetype  ",
     };
 
     @Test

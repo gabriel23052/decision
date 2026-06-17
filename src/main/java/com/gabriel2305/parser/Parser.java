@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 public class Parser {
 
+    private final int ASCII_SPACE = 32;
+
     private final char[] historyCharArr;
     private int index = 0;
     private final List<Fragment> fragmentList = new ArrayList<>();
@@ -31,8 +33,12 @@ public class Parser {
                 index++;
                 continue;
             }
-            if (actualChar <= 32) {
+            if (actualChar <= ASCII_SPACE) {
                 index++;
+                continue;
+            }
+            if(validateNodeIdNameChar(actualChar)) {
+                parseNodeTypeDeclaration();
                 continue;
             }
             throw new ParserException("Invalid char (position: " + index + ")");
@@ -47,7 +53,7 @@ public class Parser {
     private void parseNodeIdDeclaration() {
         List<Character> contentBuffer = new ArrayList<>();
         while(getActualChar() != ']') {
-            if (!validateNodeIdName(getActualChar())) {
+            if (!validateNodeIdNameChar(getActualChar())) {
                 throw new ParserException("Invalid char in NODE_ID (position: " + index + ")");
             }
             contentBuffer.add(getActualChar());
@@ -63,7 +69,30 @@ public class Parser {
         fragmentList.add(new Fragment(FragmentType.NODE_ID, content));
     }
 
-    private static boolean validateNodeIdName(char value) {
+    private void parseNodeTypeDeclaration() {
+        List<Character> contentBuffer = new ArrayList<>();
+        while(getActualChar() > ASCII_SPACE) {
+            if (!validateNodeTypeChar(getActualChar())) {
+                throw new ParserException("Invalid char in NODE_TYPE (position: " + index + ")");
+            }
+            contentBuffer.add(getActualChar());
+            index++;
+        }
+        if (contentBuffer.isEmpty()) {
+            throw new ParserException("Empty NODE_TYPE (position: " + index + ")");
+        }
+        String content = contentBuffer
+                .stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining());
+        fragmentList.add(new Fragment(FragmentType.NODE_TYPE, content));
+    }
+
+    private static boolean validateNodeTypeChar(char value) {
+        return value >= 97 && value <= 122;
+    }
+
+    private static boolean validateNodeIdNameChar(char value) {
         return (value >= 48 && value <= 57) ||
                 (value >= 65 && value <= 90) ||
                 value == 95 ||
