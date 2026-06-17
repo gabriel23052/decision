@@ -1,0 +1,13 @@
+package com.gabriel2305.parser;
+
+public enum FragmentType {
+    OPENING_PARENTHESIS,
+    CLOSING_PARENTHESIS,
+    OPENING_SQUARE_BRACKET,
+    CLOSING_SQUARE_BRACKET,
+    OPENING_CURLY_BRACE,
+    CLOSING_CURLY_BRACE,
+    NODE_ID,
+    NODE_TYPE,
+    NODE_TEXT,
+}

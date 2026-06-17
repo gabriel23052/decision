@@ -49,7 +49,7 @@ public final class UI {
     }
 
     public static void error(Object object) {
-        IO.println("[ERRO] " + object.toString());
+        IO.println("[ERROR] " + object.toString());
     }
 
     public static void log(Object object) {
