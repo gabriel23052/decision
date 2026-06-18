@@ -1,9 +1,11 @@
 package com.gabriel2305;
 
 import com.gabriel2305.exceptions.ParserException;
-import com.gabriel2305.parser.Parser;
+import com.gabriel2305.parser.DhisParser;
+import com.gabriel2305.parser.Fragment;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Application {
 
@@ -18,9 +20,10 @@ public class Application {
         UI.log("Selected: " + selectedHistory);
         UI.log("Trying create fragments");
 
-        Parser parser = new Parser(filesystemHandler.getHistoryFileContent(selectedHistory));
+        DhisParser dhisParser = new DhisParser(filesystemHandler.getHistoryFileContent(selectedHistory));
         try {
-            parser.createFragments();
+            List<Fragment> fragments = dhisParser.createFragments();
+            UI.log(fragments);
         } catch (ParserException e) {
             UI.error(e.getMessage());
         }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ParserTest {
+public class DhisParserTest {
 
     private final String[] INVALID_DHIS = {
             "abc[validNodeId]",
@@ -53,22 +53,22 @@ public class ParserTest {
             [validNodeId]
             validnodetype
             ("Valid text")
-            
+
             [validNodeId2]
             validnodetypeb
             ("valid text")
             """,
             "[validNodeId] validnodetype (\"Valid Text\",\"Valid Text 2\")",
             "[validNodeId] validnodetype (\"Valid Text\", validnodeid)",
-            "[validNodeId] validnodetype (\"Valid Text\", validnodeid,,,)"
+            "[validNodeId] validnodetype (\"Valid Text\", validnodeid,,,)",
     };
 
     @Test
     @DisplayName("Should throw exception for invalid dhis")
     void shouldThrowExceptionForInvalidDhis() {
         for(String invalidDhis : INVALID_DHIS) {
-            Parser parser = new Parser(invalidDhis);
-            assertThrows(ParserException.class, parser::createFragments);
+            DhisParser dhisParser = new DhisParser(invalidDhis);
+            assertThrows(ParserException.class, dhisParser::createFragments);
         }
     }
 
@@ -76,8 +76,8 @@ public class ParserTest {
     @DisplayName("Should does not throw exception for valid dhis")
     void shouldDoesNotThrowExceptionForValidDhis() {
         for(String validDhis : VALID_DHIS) {
-            Parser parser = new Parser(validDhis);
-            assertDoesNotThrow(parser::createFragments);
+            DhisParser dhisParser = new DhisParser(validDhis);
+            assertDoesNotThrow(dhisParser::createFragments);
         }
     }
 
