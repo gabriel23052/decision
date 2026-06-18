@@ -113,7 +113,7 @@ public class DhisParser {
         if (contentBuffer.isEmpty()) {
             throw new ParserException("Empty NODE_TYPE (position: " + index + ")");
         }
-        fragments.add(new Fragment(FragmentType.NODE_TEXT, contentBufferToString(contentBuffer)));
+        fragments.add(new Fragment(FragmentType.NODE_TYPE, contentBufferToString(contentBuffer)));
     }
 
     private void createNodeText() {
