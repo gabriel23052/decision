@@ -21,6 +21,44 @@ public class FragmentParserTest {
             "[id] (\"content\", goto) ",
             "text (\"content\", goto) ",
             "[id] text ",
+            """
+            [id] decision (
+                "chose"
+            )
+            """,
+            """
+            [id] decision (
+                "choose",
+                idA, "option"
+                idB
+            )
+            """,
+            """
+            [id] decision (
+                "choose",
+                idA, "option"
+                idB,
+            )
+            """,
+            """
+            [id] decision (
+                "choose",
+                idA, "option", "option"
+            )
+            """,
+            """
+            [id] decision (
+                idA, "option",
+                idB, "option"
+            )
+            """,
+            """
+            [id] decision (
+                "choose",
+                idA, "option",
+                idB, "option",
+            )
+            """
     };
 
     private final String[] VALID_STORIES = {
@@ -29,6 +67,19 @@ public class FragmentParserTest {
             [ida] text ("contenta", gotoa)
             [idb] text ("contentb", gotob)
             [idc] text ("contentc", gotoc)
+            """,
+            """
+            [id] decision (
+                "choose",
+                idA, "option",
+                idB, "option"
+            )
+            """,
+            """
+            [id] decision (
+                "choose",
+                idA, "option"
+            )
             """
     };
 
