@@ -10,7 +10,7 @@ if not exist "%DESTINATION%" (
 )
 
 REM Removes all .dhis files in destination
-del /Q "%DESTINO%\*.dhis" 2>nul
+del /Q "%DESTINATION%\*.dhis" 2>nul
 
 REM Copy all .dhis files from actual directory to destination
 copy "%~dp0*.dhis" "%DESTINATION%\" /Y
