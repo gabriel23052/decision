@@ -7,7 +7,14 @@ import java.util.Map;
 
 public class Storyteller {
 
-    Map<String, HistoryExecutable> historyMap = null;
+    private Map<String, HistoryExecutable> historyMap = null;
+    private final String FIRST_NODE_ID = "start";
+    private String nextNodeId = FIRST_NODE_ID;
+    private final String title;
+
+    public Storyteller(String title) {
+        this.title = title;
+    }
 
     public void setHistoryMap(Map<String, HistoryExecutable> historyMap) {
         this.historyMap = historyMap;
@@ -18,6 +25,24 @@ public class Storyteller {
             throw new StorytellerException("History map is empty");
         }
         validateHistoryMap();
+        UI.historyHeader(title);
+        historyLoop();
+        UI.historyEnd();
+    }
+
+    private void historyLoop() {
+        while (!nextNodeId.equals("end")) {
+            HistoryExecutable actualNode = historyMap.get(nextNodeId);
+            if (actualNode == null) {
+                throw new StorytellerException("Node not found: " + nextNodeId);
+            }
+            actualNode.execute();
+            String next = actualNode.getNextNodeId();
+            if (next == null) {
+                throw new StorytellerException("Node returned null to nextNodeId");
+            }
+            nextNodeId = next;
+        }
     }
 
     private void validateHistoryMap() throws StorytellerException {
@@ -28,7 +53,6 @@ public class Storyteller {
         for (HistoryExecutable h : historyMap.values()) {
             String[] externalReferences = h.getExternalReferences();
             for (String externalReference : externalReferences) {
-                UI.log(externalReference);
                 if (!historyMap.containsKey(externalReference)) {
                     if ("end".equals(externalReference)) {
                         endFound = true;

@@ -37,7 +37,7 @@ public class Application {
 
         Map<String, HistoryExecutable> historyMap = compileHistory(dhis);
 
-        Storyteller storyteller = new Storyteller();
+        Storyteller storyteller = new Storyteller(title);
         storyteller.setHistoryMap(historyMap);
         storyteller.start();
 

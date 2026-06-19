@@ -24,6 +24,11 @@ public class DecisionNode implements HistoryExecutable {
     }
 
     @Override
+    public String getNextNodeId() {
+        return "";
+    }
+
+    @Override
     public String[] getExternalReferences() {
         return options
                 .stream()
@@ -40,6 +45,5 @@ public class DecisionNode implements HistoryExecutable {
     public String getId() {
         return id;
     }
-
 
 }

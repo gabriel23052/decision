@@ -25,6 +25,11 @@ public class TextNode implements HistoryExecutable {
     }
 
     @Override
+    public String getNextNodeId() {
+        return gotoId;
+    }
+
+    @Override
     public String getId() {
         return id;
     }
