@@ -16,15 +16,15 @@ public class FragmentParser {
     private String actualNodeType;
     private FragmentParserState state = FragmentParserState.IDLE;
 
-    private final List<Fragment> fragments;
+    private final Fragment[] fragments;
     private final List<HistoryExecutable> historyNodes = new ArrayList<>();
 
-    public FragmentParser(List<Fragment> fragments) {
+    public FragmentParser(Fragment[] fragments) {
         this.fragments = fragments;
     }
 
     private Fragment getActualFragment() {
-        return fragments.get(index);
+        return fragments[index];
     }
 
     private boolean isAValidFragment(FragmentParserState targetState, FragmentType targetType) {
@@ -32,7 +32,7 @@ public class FragmentParser {
     }
 
     public List<HistoryExecutable> createHistory() {
-        while (index < fragments.size()) {
+        while (index < fragments.length) {
 
             if (isAValidFragment(FragmentParserState.IDLE, FragmentType.OPENING_SQUARE_BRACKET)) {
                 state = FragmentParserState.ID_DECLARATION;

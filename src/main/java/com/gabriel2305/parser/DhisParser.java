@@ -9,12 +9,12 @@ import java.util.stream.Collectors;
 public class DhisParser {
 
     private final int ASCII_SPACE = 32;
-
-    private final char[] dhisChars;
-    private int index = 0;
+    private char[] dhisChars = null;
     private final List<Fragment> fragments = new ArrayList<>();
 
-    public DhisParser(String dhis) {
+    private int index = 0;
+
+    public void setDhis(String dhis) {
         this.dhisChars = dhis.toCharArray();
     }
 
@@ -33,46 +33,57 @@ public class DhisParser {
                 .collect(Collectors.joining());
     }
 
-    public List<Fragment> createFragments() throws ParserException {
+    public Fragment[] createFragments() throws ParserException {
+        if (dhisChars == null) {
+            throw new ParserException("No dhis was set");
+        }
         while (index < dhisChars.length) {
             char actualChar = getActualChar();
+
             if (actualChar <= ASCII_SPACE) {
                 index++;
                 continue;
             }
+
             if (actualChar == '[') {
                 fragments.add(new Fragment(FragmentType.OPENING_SQUARE_BRACKET));
                 index++;
-                createNodeIdDeclaration();
+                handleNodeIdDeclaration();
                 continue;
             }
+
             if (actualChar == ']') {
                 fragments.add(new Fragment(FragmentType.CLOSING_SQUARE_BRACKET));
                 index++;
                 continue;
             }
+
             if (actualChar == '(') {
                 fragments.add(new Fragment(FragmentType.OPENING_PARENTHESIS));
                 index++;
                 handleNodeParams();
                 continue;
             }
+
             if (actualChar == ')') {
                 fragments.add(new Fragment(FragmentType.CLOSING_PARENTHESIS));
                 index++;
                 continue;
             }
+
             if (validateNodeTypeChar(actualChar)) {
-                createNodeTypeDeclaration();
+                handleNodeTypeDeclaration();
                 continue;
             }
+
             throw new ParserException("Invalid char (position: " + index + ")");
         }
-        return fragments;
+        return fragments.toArray(new Fragment[0]);
     }
 
-    private void createNodeIdDeclaration() {
+    private void handleNodeIdDeclaration() {
         List<Character> contentBuffer = new ArrayList<>();
+
         while (getActualChar() != ']') {
             if (!validateNodeIdChar(getActualChar())) {
                 throw new ParserException("Invalid char in NODE_ID_DECLARATION (position: " + index + ")");
@@ -80,14 +91,16 @@ public class DhisParser {
             contentBuffer.add(getActualChar());
             index++;
         }
+
         if (contentBuffer.isEmpty()) {
             throw new ParserException("Empty NODE_ID_DECLARATION (position: " + index + ")");
         }
         fragments.add(new Fragment(FragmentType.NODE_ID_DECLARATION, contentBufferToString(contentBuffer)));
     }
 
-    private void createNodeIdRef() {
+    private void handleNodeIdRef() {
         List<Character> contentBuffer = new ArrayList<>();
+
         while (getActualChar() != ')' && getActualChar() != ',' && getActualChar() > ASCII_SPACE) {
             if (!validateNodeIdChar(getActualChar())) {
                 throw new ParserException("Invalid char in NODE_ID_REF (position: " + index + ")");
@@ -95,14 +108,16 @@ public class DhisParser {
             contentBuffer.add(getActualChar());
             index++;
         }
+
         if (contentBuffer.isEmpty()) {
             throw new ParserException("Empty NODE_ID_REF (position: " + index + ")");
         }
         fragments.add(new Fragment(FragmentType.NODE_ID_REF, contentBufferToString(contentBuffer)));
     }
 
-    private void createNodeTypeDeclaration() {
+    private void handleNodeTypeDeclaration() {
         List<Character> contentBuffer = new ArrayList<>();
+
         while (getActualChar() > ASCII_SPACE && getActualChar() != '(' && getActualChar() != ')') {
             if (!validateNodeTypeChar(getActualChar())) {
                 throw new ParserException("Invalid char in NODE_TYPE (position: " + index + ")");
@@ -110,18 +125,21 @@ public class DhisParser {
             contentBuffer.add(getActualChar());
             index++;
         }
+
         if (contentBuffer.isEmpty()) {
             throw new ParserException("Empty NODE_TYPE (position: " + index + ")");
         }
         fragments.add(new Fragment(FragmentType.NODE_TYPE, contentBufferToString(contentBuffer)));
     }
 
-    private void createNodeText() {
+    private void handleNodeText() {
         List<Character> contentBuffer = new ArrayList<>();
+
         while (getActualChar() != '"') {
             contentBuffer.add(getActualChar());
             index++;
         }
+
         if (contentBuffer.isEmpty()) {
             throw new ParserException("Empty NODE_TEXT (position: " + index + ")");
         }
@@ -129,6 +147,7 @@ public class DhisParser {
     }
 
     private void handleNodeParams() {
+
         while (getActualChar() != ')') {
             if (getActualChar() <= ASCII_SPACE) {
                 index++;
@@ -137,7 +156,7 @@ public class DhisParser {
             if (getActualChar() == '"') {
                 fragments.add(new Fragment(FragmentType.OPENING_QUOTES));
                 index++;
-                createNodeText();
+                handleNodeText();
                 if (getActualChar() != '"') {
                     throw new ParserException("Text not closed (position: " + index + ")");
                 }
@@ -151,11 +170,12 @@ public class DhisParser {
                 continue;
             }
             if (validateNodeIdChar(getActualChar())) {
-                createNodeIdRef();
+                handleNodeIdRef();
                 continue;
             }
             throw new ParserException("Invalid node param (position: " + index + ")");
         }
+
     }
 
     private static boolean validateNodeTypeChar(char value) {

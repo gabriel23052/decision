@@ -83,8 +83,9 @@ public class FragmentParserTest {
             """
     };
 
-    private List<Fragment> getFragments(String dhis) {
-        DhisParser dhisParser = new DhisParser(dhis);
+    private Fragment[] getFragments(String dhis) {
+        DhisParser dhisParser = new DhisParser();
+        dhisParser.setDhis(dhis);
         return dhisParser.createFragments();
     }
 
@@ -92,7 +93,7 @@ public class FragmentParserTest {
     @DisplayName("Should throw exception for invalid stories")
     void shouldThrowExceptionForInvalidDhis() {
         for(String invalidStories : INVALID_STORIES) {
-            List<Fragment> fragments = getFragments(invalidStories);
+            Fragment[] fragments = getFragments(invalidStories);
             FragmentParser fragmentParser = new FragmentParser(fragments);
             assertThrows(ParserException.class, fragmentParser::createHistory);
         }
@@ -102,7 +103,7 @@ public class FragmentParserTest {
     @DisplayName("Should does not throw exception for valid stories")
     void shouldDoesNotThrowExceptionForInvalidDhis() {
         for(String validStories : VALID_STORIES) {
-            List<Fragment> fragments = getFragments(validStories);
+            Fragment[] fragments = getFragments(validStories);
             FragmentParser fragmentParser = new FragmentParser(fragments);
             assertDoesNotThrow(fragmentParser::createHistory);
         }

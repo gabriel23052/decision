@@ -67,7 +67,8 @@ public class DhisParserTest {
     @DisplayName("Should throw exception for invalid dhis")
     void shouldThrowExceptionForInvalidDhis() {
         for(String invalidDhis : INVALID_DHIS) {
-            DhisParser dhisParser = new DhisParser(invalidDhis);
+            DhisParser dhisParser = new DhisParser();
+            dhisParser.setDhis(invalidDhis);
             assertThrows(ParserException.class, dhisParser::createFragments);
         }
     }
@@ -76,7 +77,8 @@ public class DhisParserTest {
     @DisplayName("Should does not throw exception for valid dhis")
     void shouldDoesNotThrowExceptionForValidDhis() {
         for(String validDhis : VALID_DHIS) {
-            DhisParser dhisParser = new DhisParser(validDhis);
+            DhisParser dhisParser = new DhisParser();
+            dhisParser.setDhis(validDhis);
             assertDoesNotThrow(dhisParser::createFragments);
         }
     }
