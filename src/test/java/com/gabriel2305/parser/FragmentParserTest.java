@@ -94,7 +94,7 @@ public class FragmentParserTest {
             Fragment[] fragments = getFragments(invalidStories);
             FragmentParser fragmentParser = new FragmentParser();
             fragmentParser.setFragments(fragments);
-            assertThrows(ParserException.class, fragmentParser::createHistoryMap);
+            assertThrows(ParserException.class, fragmentParser::createStoryMap);
         }
     }
 
@@ -105,7 +105,7 @@ public class FragmentParserTest {
             Fragment[] fragments = getFragments(validStories);
             FragmentParser fragmentParser = new FragmentParser();
             fragmentParser.setFragments(fragments);
-            assertDoesNotThrow(fragmentParser::createHistoryMap);
+            assertDoesNotThrow(fragmentParser::createStoryMap);
         }
     }
 }

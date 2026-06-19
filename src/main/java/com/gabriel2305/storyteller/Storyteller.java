@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Storyteller {
 
-    private Map<String, HistoryExecutable> historyMap = null;
+    private Map<String, StoryExecutable> storyMap = null;
     private final String FIRST_NODE_ID = "start";
     private String nextNodeId = FIRST_NODE_ID;
     private final String title;
@@ -16,23 +16,23 @@ public class Storyteller {
         this.title = title;
     }
 
-    public void setHistoryMap(Map<String, HistoryExecutable> historyMap) {
-        this.historyMap = historyMap;
+    public void setStoryMap(Map<String, StoryExecutable> storyMap) {
+        this.storyMap = storyMap;
     }
 
     public void start() {
-        if (historyMap == null || historyMap.isEmpty()) {
-            throw new StorytellerException("History map is empty");
+        if (storyMap == null || storyMap.isEmpty()) {
+            throw new StorytellerException("Story map is empty");
         }
-        validateHistoryMap();
-        UI.historyHeader(title);
-        historyLoop();
-        UI.historyEnd();
+        validateStoryMap();
+        UI.storyHeader(title);
+        storyLoop();
+        UI.storyEnd();
     }
 
-    private void historyLoop() {
+    private void storyLoop() {
         while (!nextNodeId.equals("end")) {
-            HistoryExecutable actualNode = historyMap.get(nextNodeId);
+            StoryExecutable actualNode = storyMap.get(nextNodeId);
             if (actualNode == null) {
                 throw new StorytellerException("Node not found: " + nextNodeId);
             }
@@ -46,15 +46,15 @@ public class Storyteller {
         }
     }
 
-    private void validateHistoryMap() throws StorytellerException {
+    private void validateStoryMap() throws StorytellerException {
         boolean endFound = false;
-        if (!historyMap.containsKey("start")) {
+        if (!storyMap.containsKey("start")) {
             throw new StorytellerException("\"start\" node not found");
         }
-        for (HistoryExecutable h : historyMap.values()) {
+        for (StoryExecutable h : storyMap.values()) {
             String[] externalReferences = h.getExternalReferences();
             for (String externalReference : externalReferences) {
-                if (!historyMap.containsKey(externalReference)) {
+                if (!storyMap.containsKey(externalReference)) {
                     if ("end".equals(externalReference)) {
                         endFound = true;
                         continue;

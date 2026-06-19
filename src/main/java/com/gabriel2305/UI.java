@@ -83,7 +83,7 @@ public final class UI {
         UI.line();
     }
 
-    public static int historySelection(String[] stories) {
+    public static int storySelection(String[] stories) {
         UI.printLn("Escolha a história", TextAlignment.CENTER);
         UI.blankLine();
         UI.printLn("0 - Sair do jogo");
@@ -101,7 +101,7 @@ public final class UI {
         }
     }
 
-    public static void historyHeader(String title) {
+    public static void storyHeader(String title) {
         UI.blankLine();
         UI.line();
         UI.blankLine();
@@ -109,7 +109,7 @@ public final class UI {
         UI.blankLine();
     }
 
-    public static void historyEnd() {
+    public static void storyEnd() {
         UI.blankLine();
         UI.printLn("FIM", TextAlignment.CENTER);
         UI.blankLine();

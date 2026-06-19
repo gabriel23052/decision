@@ -2,7 +2,7 @@ package com.gabriel2305.storyteller;
 
 import com.gabriel2305.UI;
 
-public class TextNode implements HistoryExecutable {
+public class TextNode implements StoryExecutable {
 
     private final String id;
     private final String text;

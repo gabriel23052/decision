@@ -2,7 +2,7 @@ package com.gabriel2305.parser;
 
 import com.gabriel2305.exceptions.ParserException;
 import com.gabriel2305.storyteller.DecisionNode;
-import com.gabriel2305.storyteller.HistoryExecutable;
+import com.gabriel2305.storyteller.StoryExecutable;
 import com.gabriel2305.storyteller.Option;
 import com.gabriel2305.storyteller.TextNode;
 
@@ -19,7 +19,7 @@ public class FragmentParser {
     private FragmentParserState state = FragmentParserState.IDLE;
 
     private Fragment[] fragments = null;
-    private final Map<String, HistoryExecutable> historyMap = new HashMap<>();
+    private final Map<String, StoryExecutable> storyMap = new HashMap<>();
 
     public void setFragments(Fragment[] fragments) {
         this.fragments = fragments;
@@ -33,15 +33,15 @@ public class FragmentParser {
         return state == targetState && targetType == getActualFragment().type();
     }
 
-    private void addHistoryNode(HistoryExecutable historyNode) {
-        String nodeId = historyNode.getId();
-        if (historyMap.containsKey(nodeId)) {
+    private void addStoryNode(StoryExecutable storyNode) {
+        String nodeId = storyNode.getId();
+        if (storyMap.containsKey(nodeId)) {
             throw new ParserException("Duplicated id: " + nodeId);
         }
-        historyMap.put(nodeId, historyNode);
+        storyMap.put(nodeId, storyNode);
     }
 
-    public Map<String, HistoryExecutable> createHistoryMap() {
+    public Map<String, StoryExecutable> createStoryMap() {
         if (fragments == null || fragments.length == 0) {
             throw new ParserException("Fragments not set");
         }
@@ -88,7 +88,7 @@ public class FragmentParser {
             throw new ParserException("Unexpected end");
         }
 
-        return historyMap;
+        return storyMap;
     }
 
     private void nodeDelegator() {
@@ -149,7 +149,7 @@ public class FragmentParser {
 
             throw new ParserException("Unexpected fragment: " + getActualFragment());
         }
-        addHistoryNode(new TextNode(actualNodeId, text, gotoId));
+        addStoryNode(new TextNode(actualNodeId, text, gotoId));
     }
 
     private void handleDecisionNode() {
@@ -189,7 +189,7 @@ public class FragmentParser {
 
         DecisionNode decisionNode = new DecisionNode(actualNodeId, text);
         options.forEach(decisionNode::addOption);
-        addHistoryNode(decisionNode);
+        addStoryNode(decisionNode);
     }
 
     private void handleDecisionOptions(List<Option> optionsList) {

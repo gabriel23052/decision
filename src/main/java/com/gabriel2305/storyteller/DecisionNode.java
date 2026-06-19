@@ -5,7 +5,7 @@ import com.gabriel2305.UI;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DecisionNode implements HistoryExecutable {
+public class DecisionNode implements StoryExecutable {
 
     private final String id;
     private final String text;

@@ -1,6 +1,6 @@
 package com.gabriel2305.storyteller;
 
-public interface HistoryExecutable {
+public interface StoryExecutable {
 
     void execute();
     String getId();

@@ -5,7 +5,7 @@ import com.gabriel2305.exceptions.ParserException;
 import com.gabriel2305.parser.DhisParser;
 import com.gabriel2305.parser.Fragment;
 import com.gabriel2305.parser.FragmentParser;
-import com.gabriel2305.storyteller.HistoryExecutable;
+import com.gabriel2305.storyteller.StoryExecutable;
 import com.gabriel2305.storyteller.Storyteller;
 
 import java.util.Map;
@@ -25,20 +25,20 @@ public class Application {
             return;
         }
 
-        int option = UI.historySelection(availableStories);
+        int option = UI.storySelection(availableStories);
         if (option == 0) {
             UI.goodbye();
             return;
         }
 
         String title = availableStories[option - 1];
-        String dhis = filesystemHandler.getHistoryFileContent(title);
+        String dhis = filesystemHandler.getDhisFileContent(title);
 
 
-        Map<String, HistoryExecutable> historyMap = compileHistory(dhis);
+        Map<String, StoryExecutable> storyMap = compileStory(dhis);
 
         Storyteller storyteller = new Storyteller(title);
-        storyteller.setHistoryMap(historyMap);
+        storyteller.setStoryMap(storyMap);
         storyteller.start();
 
         UI.goodbye();
@@ -55,14 +55,14 @@ public class Application {
         }
     }
 
-    private Map<String, HistoryExecutable> compileHistory(String dhis) {
+    private Map<String, StoryExecutable> compileStory(String dhis) {
         DhisParser dhisParser = new DhisParser();
         FragmentParser fragmentParser = new FragmentParser();
         try {
             dhisParser.setDhis(dhis);
             Fragment[] fragments = dhisParser.createFragments();
             fragmentParser.setFragments(fragments);
-            return fragmentParser.createHistoryMap();
+            return fragmentParser.createStoryMap();
         } catch (ParserException e) {
             UI.error(e.getMessage());
             System.exit(0);

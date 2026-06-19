@@ -72,14 +72,14 @@ public final class FilesystemHandler {
         return storiesMap.keySet().toArray(new String[0]);
     }
 
-    public String getHistoryFileContent(String history) {
-        if (!storiesMap.containsKey(history)) {
-            throw new FilesystemException("History file does not exist");
+    public String getDhisFileContent(String story) {
+        if (!storiesMap.containsKey(story)) {
+            throw new FilesystemException("Story file does not exist");
         }
         try {
-            return Files.readString(storiesMap.get(history));
+            return Files.readString(storiesMap.get(story));
         } catch (IOException e) {
-            throw new FilesystemException("Failed while trying to read the history file content");
+            throw new FilesystemException("Failed while trying to read the story file content");
         }
     }
 }
