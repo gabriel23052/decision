@@ -7,6 +7,8 @@ import com.gabriel2305.parser.Fragment;
 import com.gabriel2305.parser.FragmentParser;
 import com.gabriel2305.storyteller.HistoryExecutable;
 
+import java.util.Map;
+
 public class Application {
 
     public void start() {
@@ -46,16 +48,16 @@ public class Application {
         }
 
         fragmentParser.setFragments(fragments);
-        HistoryExecutable[] history = new HistoryExecutable[0];
+        Map<String, HistoryExecutable> historyMap = null;
         try {
-            history = fragmentParser.createHistory();
+            historyMap = fragmentParser.createHistoryMap();
         } catch (ParserException e) {
             UI.error(e.getMessage());
         }
-        for(HistoryExecutable executable : history) {
-            UI.log(executable);
-        }
 
+        if (historyMap != null) {
+            historyMap.forEach((key, value) -> UI.log(key + " -> " + value));
+        }
         UI.goodbye();
     }
 }

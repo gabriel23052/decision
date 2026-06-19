@@ -4,8 +4,6 @@ import com.gabriel2305.exceptions.ParserException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -96,7 +94,7 @@ public class FragmentParserTest {
             Fragment[] fragments = getFragments(invalidStories);
             FragmentParser fragmentParser = new FragmentParser();
             fragmentParser.setFragments(fragments);
-            assertThrows(ParserException.class, fragmentParser::createHistory);
+            assertThrows(ParserException.class, fragmentParser::createHistoryMap);
         }
     }
 
@@ -107,7 +105,7 @@ public class FragmentParserTest {
             Fragment[] fragments = getFragments(validStories);
             FragmentParser fragmentParser = new FragmentParser();
             fragmentParser.setFragments(fragments);
-            assertDoesNotThrow(fragmentParser::createHistory);
+            assertDoesNotThrow(fragmentParser::createHistoryMap);
         }
     }
 }

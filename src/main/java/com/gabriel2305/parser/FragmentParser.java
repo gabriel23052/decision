@@ -7,7 +7,9 @@ import com.gabriel2305.storyteller.Option;
 import com.gabriel2305.storyteller.TextNode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FragmentParser {
 
@@ -17,7 +19,7 @@ public class FragmentParser {
     private FragmentParserState state = FragmentParserState.IDLE;
 
     private Fragment[] fragments = null;
-    private final List<HistoryExecutable> historyNodes = new ArrayList<>();
+    private final Map<String, HistoryExecutable> historyMap = new HashMap<>();
 
     public void setFragments(Fragment[] fragments) {
         this.fragments = fragments;
@@ -31,7 +33,15 @@ public class FragmentParser {
         return state == targetState && targetType == getActualFragment().type();
     }
 
-    public HistoryExecutable[] createHistory() {
+    private void addHistoryNode(HistoryExecutable historyNode) {
+        String nodeId = historyNode.getId();
+        if (historyMap.containsKey(nodeId)) {
+            throw new ParserException("Duplicated id: " + nodeId);
+        }
+        historyMap.put(nodeId, historyNode);
+    }
+
+    public Map<String, HistoryExecutable> createHistoryMap() {
         if (fragments == null || fragments.length == 0) {
             throw new ParserException("Fragments not set");
         }
@@ -78,7 +88,7 @@ public class FragmentParser {
             throw new ParserException("Unexpected end");
         }
 
-        return historyNodes.toArray(new HistoryExecutable[0]);
+        return historyMap;
     }
 
     private void nodeDelegator() {
@@ -139,7 +149,7 @@ public class FragmentParser {
 
             throw new ParserException("Unexpected fragment: " + getActualFragment());
         }
-        historyNodes.add(new TextNode(actualNodeId, text, gotoId));
+        addHistoryNode(new TextNode(actualNodeId, text, gotoId));
     }
 
     private void handleDecisionNode() {
@@ -179,7 +189,7 @@ public class FragmentParser {
 
         DecisionNode decisionNode = new DecisionNode(actualNodeId, text);
         options.forEach(decisionNode::addOption);
-        historyNodes.add(decisionNode);
+        addHistoryNode(decisionNode);
     }
 
     private void handleDecisionOptions(List<Option> optionsList) {

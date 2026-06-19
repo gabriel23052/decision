@@ -30,7 +30,7 @@ public class DecisionNode implements HistoryExecutable {
 
     @Override
     public String getId() {
-        return "";
+        return id;
     }
 
 
