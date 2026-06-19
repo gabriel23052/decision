@@ -1,0 +1,337 @@
+[start] text (
+    "Era quase meia-noite quando o grupo chegou ao velho fliperama.
+    O lugar estava fechado há anos mas a porta dos fundos cedeu fácil.
+    Diziam que uma máquina no subsolo concedia um pedido ao vencedor.",
+    entrada
+)
+
+[entrada] decision (
+    "Você segura a lanterna enquanto seus amigos discutem o plano.",
+    liderar, "entrar primeiro e puxar o grupo",
+    esperar, "ficar atrás e observar tudo com calma"
+)
+
+[liderar] text (
+    "Você entra antes de todos.
+    O ar tem cheiro de poeira quente e metal queimado.
+    No balcão há fichas antigas espalhadas como se alguém tivesse fugido.",
+    fichas
+)
+
+[esperar] text (
+    "Você deixa os outros entrarem primeiro.
+    Por alguns segundos nada acontece.
+    Então percebe pegadas recentes no pó indo para a sala dos fundos.",
+    pegadas
+)
+
+[fichas] decision (
+    "As fichas no balcão parecem novas demais para aquele lugar.",
+    pegarFichas, "pegar algumas fichas",
+    ignorarFichas, "ignorar as fichas e chamar o grupo"
+)
+
+[pegadas] decision (
+    "As pegadas seguem para uma porta com a palavra FUNCIONÁRIOS.",
+    seguirPegadas, "seguir as pegadas sozinho",
+    avisarGrupo, "avisar o grupo antes de seguir"
+)
+
+[pegarFichas] text (
+    "Assim que toca nas fichas as luzes do fliperama acendem sozinhas.
+    Todas as máquinas ligam ao mesmo tempo.
+    Uma voz metálica diz que um jogador foi escolhido.",
+    maquinaEscolhida
+)
+
+[ignorarFichas] text (
+    "Você chama o grupo antes de mexer em qualquer coisa.
+    Um dos seus amigos ri e pega uma ficha mesmo assim.
+    As luzes acendem e a porta de entrada bate com força.",
+    grupoPreso
+)
+
+[seguirPegadas] text (
+    "Você segue sozinho até a sala dos funcionários.
+    Dentro há uma mochila recente e um celular vibrando sem parar.
+    Na tela aparece a mensagem: não jogue a última fase.",
+    avisoCelular
+)
+
+[avisarGrupo] text (
+    "Você mostra as pegadas para todos.
+    A brincadeira perde a graça por alguns segundos.
+    Juntos vocês seguem até a porta dos funcionários.",
+    salaJuntos
+)
+
+[maquinaEscolhida] decision (
+    "No fundo do salão uma máquina sem nome começa a piscar.",
+    jogar, "colocar uma ficha e jogar",
+    quebrar, "tentar quebrar a máquina antes que algo piore"
+)
+
+[grupoPreso] decision (
+    "A porta não abre mais.
+    A única coisa ligada no fundo é uma máquina sem nome.",
+    culparAmigo, "culpar seu amigo por pegar a ficha",
+    manterCalma, "manter a calma e organizar o grupo"
+)
+
+[avisoCelular] decision (
+    "Você ouve passos vindo do corredor.
+    Pode esconder o celular ou correr para avisar os outros.",
+    esconderCelular, "esconder o celular e ficar quieto",
+    correrAvisar, "correr para avisar o grupo"
+)
+
+[salaJuntos] decision (
+    "A sala tem uma escada para o subsolo e um quadro de energia.",
+    desligarEnergia, "tentar desligar a energia",
+    descerJuntos, "descer para o subsolo com todos"
+)
+
+[jogar] text (
+    "A tela mostra uma versão pixelada de você.
+    Cada movimento no controle faz seu corpo tremer no mundo real.
+    A máquina não quer diversão. Ela quer obediência.",
+    jogoVivo
+)
+
+[quebrar] text (
+    "Você acerta a máquina com uma cadeira.
+    O vidro racha e uma fumaça azul escapa pela lateral.
+    As outras máquinas começam a repetir seu nome em coro.",
+    retaliacao
+)
+
+[culparAmigo] text (
+    "A discussão cresce rápido.
+    Enquanto vocês brigam a máquina no fundo começa uma contagem.
+    Quando chegam ao zero o chão se abre sob o grupo.",
+    queda
+)
+
+[manterCalma] text (
+    "Você pede silêncio e divide tarefas.
+    Dois tentam a porta enquanto outros procuram o quadro de energia.
+    Pela primeira vez a situação parece controlável.",
+    planoGrupo
+)
+
+[esconderCelular] text (
+    "Você se esconde atrás de caixas velhas.
+    Um homem com uniforme antigo entra e pega a mochila.
+    Ele sussurra que a máquina nunca perde duas vezes.",
+    homemAntigo
+)
+
+[correrAvisar] text (
+    "Você corre de volta e grita para ninguém jogar.
+    Seus amigos param antes de tocar na máquina.
+    Por um instante a luz dela falha como se tivesse ouvido.",
+    todosAvisados
+)
+
+[desligarEnergia] text (
+    "Você puxa a chave geral.
+    O prédio inteiro apaga exceto a máquina sem nome.
+    Ela continua ligada no escuro como um olho aberto.",
+    maquinaNoEscuro
+)
+
+[descerJuntos] text (
+    "Vocês descem juntos ao subsolo.
+    Lá embaixo há dezenas de nomes riscados na parede.
+    Um deles é o nome do seu amigo que pegou a ficha.",
+    nomesParede
+)
+
+[jogoVivo] decision (
+    "A primeira fase começa.
+    Na tela seu personagem encontra uma porta e uma chave brilhante.",
+    pegarChave, "pegar a chave",
+    fugirTela, "correr para a borda da tela"
+)
+
+[retaliacao] decision (
+    "A fumaça forma uma sombra com rosto humano.
+    Ela aponta para você e depois para a saída trancada.",
+    negociar, "tentar negociar com a sombra",
+    enfrentar, "enfrentar a sombra mesmo sem entender"
+)
+
+[queda] text (
+    "Vocês caem em uma sala acolchoada cheia de controles quebrados.
+    A máquina acima liga sozinha.
+    Agora cada decisão será tomada por medo e não por escolha.",
+    finalRuim
+)
+
+[planoGrupo] decision (
+    "O plano funciona parcialmente.
+    A porta continua trancada mas vocês acham uma passagem de serviço.",
+    usarPassagem, "usar a passagem de serviço",
+    procurarFonte, "procurar a fonte da energia da máquina"
+)
+
+[homemAntigo] decision (
+    "O homem se vira na sua direção.
+    Ele não parece vivo nem morto.
+    Mesmo assim ele parece cansado de guardar aquele lugar.",
+    falarHomem, "falar com ele",
+    fugirHomem, "fugir antes que ele veja melhor"
+)
+
+[todosAvisados] decision (
+    "Com todos alertas vocês podem sair pela janela quebrada ou investigar.",
+    sairAgora, "sair agora sem olhar para trás",
+    investigarJuntos, "investigar juntos para impedir que outros entrem"
+)
+
+[maquinaNoEscuro] decision (
+    "No escuro a máquina imprime um bilhete.
+    Nele está escrito: uma vitória compra uma saída.",
+    aceitarDesafio, "aceitar o desafio",
+    destruirFonte, "procurar a fonte de energia real"
+)
+
+[nomesParede] decision (
+    "Seu amigo nega que já esteve ali.
+    Mas o nome dele parece recém escrito.",
+    confiarAmigo, "confiar nele mesmo assim",
+    pressionarAmigo, "pressionar até ele contar a verdade"
+)
+
+[pegarChave] text (
+    "Você pega a chave.
+    No mundo real uma chave enferrujada cai da máquina.
+    Ela abre a porta mas deixa seu reflexo preso na tela.",
+    finalAmbiguo
+)
+
+[fugirTela] text (
+    "Você corre até a borda da tela.
+    O cenário quebra como vidro.
+    A máquina trava e cospe todas as fichas no chão.",
+    finalBom
+)
+
+[negociar] text (
+    "A sombra aceita uma troca.
+    Ela abre a saída mas exige que a máquina seja levada embora.
+    Você sai livre sabendo que o problema apenas mudou de endereço.",
+    finalAmbiguo
+)
+
+[enfrentar] text (
+    "Você avança sem plano.
+    A sombra atravessa seu peito como vento gelado.
+    Quando acorda está dentro de um jogo esperando outro jogador.",
+    finalRuim
+)
+
+[usarPassagem] text (
+    "A passagem leva para fora do prédio.
+    Vocês escapam sujos e tremendo.
+    No dia seguinte o fliperama aparece aberto como se nada tivesse ocorrido.",
+    finalAmbiguo
+)
+
+[procurarFonte] text (
+    "Vocês encontram uma bateria escondida sob o palco.
+    Ela pulsa ligada a fotos de antigos jogadores.
+    Ao desconectar tudo as máquinas morrem ao mesmo tempo.",
+    finalBom
+)
+
+[falarHomem] text (
+    "Você pergunta como vencer.
+    O homem responde que vencer é recusar o prêmio.
+    Depois entrega a própria ficha e desaparece no corredor.",
+    recusarPremio
+)
+
+[fugirHomem] text (
+    "Você corre sem olhar para trás.
+    Tropeça no corredor e derruba o celular.
+    Quando levanta a máquina já sabe seu nome.",
+    finalRuim
+)
+
+[sairAgora] text (
+    "Vocês saem pela janela e correm até a rua.
+    Ninguém acredita na história depois.
+    Ainda assim nenhum de vocês volta a passar por aquela avenida.",
+    finalBom
+)
+
+[investigarJuntos] text (
+    "Vocês decidem ficar.
+    Trabalhando juntos encontram registros de jovens desaparecidos.
+    Agora há provas suficientes para derrubar a lenda.",
+    finalBom
+)
+
+[aceitarDesafio] text (
+    "Você joga a última fase.
+    Vence por um ponto.
+    A porta abre mas a máquina imprime seu nome na lista de campeões.",
+    finalAmbiguo
+)
+
+[destruirFonte] text (
+    "Você segue os cabos até uma sala escondida.
+    A fonte não é elétrica.
+    São memórias presas em fitas antigas.",
+    libertarMemorias
+)
+
+[confiarAmigo] text (
+    "Você confia nele.
+    Ele admite que sonhou com aquele lugar por semanas.
+    Juntos vocês procuram o centro da máquina antes que ela acorde.",
+    procurarFonte
+)
+
+[pressionarAmigo] text (
+    "Você pressiona seu amigo até ele entrar em pânico.
+    Ele corre para a máquina e aperta iniciar.
+    A última fase começa sem que ninguém esteja preparado.",
+    finalRuim
+)
+
+[recusarPremio] text (
+    "Você usa a ficha do homem e vence sem pedir nada.
+    A máquina espera um desejo que nunca vem.
+    Sem prêmio para cobrar ela se desliga pela primeira vez.",
+    finalBom
+)
+
+[libertarMemorias] text (
+    "Vocês destroem as fitas uma por uma.
+    Vozes antigas agradecem no escuro.
+    Quando a última fita rasga o fliperama finalmente fica silencioso.",
+    finalBom
+)
+
+[finalBom] text (
+    "Final bom.
+    Vocês saem diferentes daquela noite.
+    Não foi coragem pura. Foi escolha certa na hora errada.",
+    end
+)
+
+[finalAmbiguo] text (
+    "Final ambíguo.
+    Vocês sobrevivem mas algo fica pendente.
+    Algumas portas se fecham por fora e continuam abertas por dentro.",
+    end
+)
+
+[finalRuim] text (
+    "Final ruim.
+    O fliperama ganha mais uma história.
+    E histórias ruins também precisam de alguém para contar.",
+    end
+)

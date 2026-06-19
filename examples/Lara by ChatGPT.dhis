@@ -1,0 +1,547 @@
+[start] text (
+    "A festa da turma já tinha começado quando você chegou.
+    A música estava alta, o quintal cheio e a cozinha virava ponto de fuga.
+    Foi ali que você viu a Lara, rindo sozinha de algo no celular.",
+    primeiraAcao
+)
+
+[primeiraAcao] decision (
+    "Você queria falar com ela há semanas, mas nunca achava uma abertura boa.",
+    chegarDireto, "chegar nela sem enrolar",
+    observarAntes, "observar o clima antes de falar"
+)
+
+[chegarDireto] text (
+    "Você respira fundo e vai até ela.
+    Ela levanta os olhos do celular e sorri de leve.
+    — Oi, tudo bem? Você é da sala do Diego, né?",
+    conversaInicial
+)
+
+[observarAntes] text (
+    "Você fica perto da mesa de refrigerantes tentando parecer casual.
+    Lara parece tranquila, mas também parece cansada da bagunça.
+    Ela guarda o celular e olha para o jardim vazio.",
+    oportunidadeCalma
+)
+
+[conversaInicial] decision (
+    "A conversa começou melhor do que você esperava.",
+    elogiarAparencia, "fazer um elogio sobre a aparência dela",
+    puxarAssunto, "puxar assunto sobre algo em comum"
+)
+
+[oportunidadeCalma] decision (
+    "Ela caminha para o jardim com um copo de suco na mão.",
+    seguirComCalma, "ir até o jardim e falar com calma",
+    pedirAmigoAjuda, "pedir para um amigo criar a situação"
+)
+
+[elogiarAparencia] text (
+    "Você tenta parecer confiante.
+    — Você está muito bonita hoje.
+    Lara sorri, mas olha para o lado como quem não sabe bem o que responder.",
+    reacaoElogio
+)
+
+[puxarAssunto] text (
+    "Você lembra que ela comentou sobre música na aula.
+    — Vi você falando daquela banda outro dia. Comecei a ouvir.
+    Os olhos dela acendem um pouco.",
+    musica
+)
+
+[seguirComCalma] text (
+    "Você vai até o jardim sem pressa.
+    — Posso ficar aqui também? Lá dentro está impossível.
+    Lara ri baixo e aponta para o banco ao lado.",
+    bancoJardim
+)
+
+[pedirAmigoAjuda] text (
+    "Você chama o Diego e pede para ele puxar assunto com os dois.
+    Diego entende errado e chega alto demais.
+    — Lara, o cara aqui quer muito falar contigo.",
+    constrangimento
+)
+
+[reacaoElogio] decision (
+    "O elogio não foi um desastre, mas a conversa ficou meio travada.",
+    insistirElogio, "continuar elogiando para mostrar interesse",
+    mudarAssunto, "mudar para um assunto mais natural"
+)
+
+[musica] decision (
+    "Ela parece interessada de verdade.",
+    fingirConhecer, "fingir que conhece muito a banda",
+    serHonesto, "dizer que ouviu pouco mas gostou"
+)
+
+[bancoJardim] decision (
+    "Vocês ficam alguns segundos em silêncio, mas não é desconfortável.",
+    falarDeSi, "começar falando bastante sobre você",
+    perguntarEla, "perguntar como ela está"
+)
+
+[constrangimento] decision (
+    "Lara ri sem graça.
+    Diego percebe tarde demais que atrapalhou.",
+    rirJunto, "rir da situação e assumir o constrangimento",
+    negarTudo, "negar que queria falar com ela"
+)
+
+[insistirElogio] text (
+    "Você continua falando que ela é diferente das outras garotas.
+    Lara cruza os braços.
+    — Diferente como? Você nem me conhece direito.",
+    alertaRuim
+)
+
+[mudarAssunto] text (
+    "Você percebe o clima estranho e muda de rota.
+    — Foi mal, acho que comecei meio torto. Como está sendo sua noite?
+    Ela relaxa um pouco.",
+    recuperacao
+)
+
+[fingirConhecer] text (
+    "Você começa a falar com muita certeza.
+    Lara pergunta qual álbum você mais gostou.
+    Você trava por meio segundo a mais do que deveria.",
+    pegoMentira
+)
+
+[serHonesto] text (
+    "Você responde sem tentar parecer mais interessante.
+    — Ouvi umas três músicas. Ainda não sei nada, mas gostei da vibe.
+    Lara sorri de verdade.",
+    conexaoMusica
+)
+
+[falarDeSi] text (
+    "Você começa a contar seus projetos, seus planos e suas ideias.
+    Lara escuta no começo, mas depois olha para dentro da casa.
+    A conversa virou apresentação, não troca.",
+    monologo
+)
+
+[perguntarEla] text (
+    "Você pergunta se ela está bem.
+    Lara demora um pouco para responder.
+    — Estou meio cansada. Vim porque prometeram que seria mais tranquilo.",
+    conversaHonesta
+)
+
+[rirJunto] text (
+    "Você ri sem forçar.
+    — Tá, isso foi horrível. Eu queria falar contigo, mas não desse jeito.
+    Lara ri também, agora de verdade.",
+    assumirInteresse
+)
+
+[negarTudo] text (
+    "Você balança a cabeça rápido.
+    — Nada a ver, ele está viajando.
+    Lara olha para Diego, depois para você, e o clima morre ali.",
+    finalRuim
+)
+
+[alertaRuim] decision (
+    "Você percebe que passou do ponto.",
+    pedirDesculpa, "pedir desculpa sem tentar se justificar",
+    tentarSalvarCharme, "tentar transformar em piada charmosa"
+)
+
+[recuperacao] decision (
+    "Ela responde que a noite está estranha, mas não ruim.",
+    ouvirMais, "ouvir mais e fazer perguntas simples",
+    convidarDancar, "chamar para dançar imediatamente"
+)
+
+[pegoMentira] decision (
+    "Ela percebe que você estava fingindo.",
+    admitirMentira, "admitir que exagerou para impressionar",
+    continuarMentira, "continuar fingindo confiança"
+)
+
+[conexaoMusica] decision (
+    "Lara pega o celular e mostra uma música.",
+    ouvirComEla, "ouvir um trecho com ela",
+    mudarParaConvite, "usar o momento para chamar ela para sair"
+)
+
+[monologo] decision (
+    "Você percebe que está falando sozinho há tempo demais.",
+    cortarMonologo, "parar e trazer ela para a conversa",
+    continuarProvando, "continuar tentando provar seu valor"
+)
+
+[conversaHonesta] decision (
+    "A conversa ficou mais real.",
+    respeitarClima, "ficar ali conversando sem pressionar",
+    resolverProblemas, "tentar resolver o cansaço dela com conselhos"
+)
+
+[assumirInteresse] decision (
+    "Agora ela sabe que você queria falar com ela.",
+    serClaro, "ser claro sem pressionar",
+    fazerPersonagem, "agir como se fosse muito confiante"
+)
+
+[pedirDesculpa] text (
+    "Você baixa um pouco o tom.
+    — Foi mal. Soou estranho mesmo. Não era minha intenção te reduzir a isso.
+    Lara descruza os braços, ainda cautelosa.",
+    segundaChance
+)
+
+[tentarSalvarCharme] text (
+    "Você tenta rir e dizer que ela entendeu errado.
+    Lara perde o sorriso.
+    — Acho que vou voltar lá para dentro.",
+    finalRuim
+)
+
+[ouvirMais] text (
+    "Você deixa ela falar.
+    Ela conta que quase não veio e que anda evitando lugares cheios.
+    Você não tenta consertar nada, só presta atenção.",
+    confianca
+)
+
+[convidarDancar] text (
+    "Você chama para dançar.
+    Ela olha para a sala lotada e balança a cabeça.
+    — Agora não. Estou meio sem energia.",
+    conviteCedo
+)
+
+[admitirMentira] text (
+    "Você dá uma risada curta.
+    — Tá, fui pego. Eu ouvi pouco e quis parecer interessante.
+    Lara ri, mas aponta o erro com sinceridade.",
+    honestidadeTardia
+)
+
+[continuarMentira] text (
+    "Você improvisa nomes e opiniões.
+    Lara desbloqueia o celular, mostra a tela da banda e espera.
+    A mentira fica grande demais para caber na conversa.",
+    finalRuim
+)
+
+[ouvirComEla] text (
+    "Vocês dividem um fone por alguns segundos.
+    A música baixa o volume do mundo em volta.
+    Ela observa sua reação mais do que a própria música.",
+    momentoBom
+)
+
+[mudarParaConvite] text (
+    "Você aproveita o sorriso dela e já chama para sair.
+    Ela parece surpresa.
+    — Calma, a gente começou a conversar agora.",
+    pressa
+)
+
+[cortarMonologo] text (
+    "Você para no meio de uma frase.
+    — Nossa, falei demais. E você, no que está mexendo ultimamente?
+    Lara sorri como quem agradece a mudança.",
+    equilibrio
+)
+
+[continuarProvando] text (
+    "Você continua listando coisas que faz, como se fosse uma entrevista.
+    Lara responde cada vez menos.
+    Quando você percebe, ela já está procurando outra pessoa.",
+    finalRuim
+)
+
+[respeitarClima] text (
+    "Você não força animação.
+    A conversa fica leve porque ninguém precisa performar.
+    Lara parece mais presente a cada resposta.",
+    proximidade
+)
+
+[resolverProblemas] text (
+    "Você começa a dar conselhos sobre sair mais e se distrair.
+    Lara fica quieta.
+    — Eu só falei que estava cansada, não pedi uma solução.",
+    erroConselho
+)
+
+[serClaro] text (
+    "Você fala sem floreio.
+    — Eu queria te conhecer melhor, mas sem te deixar desconfortável.
+    Lara sustenta seu olhar por um segundo.",
+    clareza
+)
+
+[fazerPersonagem] text (
+    "Você muda o tom e tenta bancar o cara irresistível.
+    Lara ri, mas não do jeito bom.
+    — Você estava melhor antes.",
+    personagemFalha
+)
+
+[segundaChance] decision (
+    "Ela ainda não desistiu da conversa.",
+    falarNormal, "falar de forma normal e deixar o clima respirar",
+    pedirContatoLogo, "pedir o contato para não perder a chance"
+)
+
+[confianca] decision (
+    "Ela parece confortável no jardim.",
+    compartilharAlgo, "compartilhar algo seu também",
+    tocarNoAssunto, "perguntar se ela está solteira"
+)
+
+[conviteCedo] decision (
+    "Ela recusou a dança, mas não foi grossa.",
+    aceitarNao, "aceitar o não e continuar de boa",
+    insistirDanca, "insistir dizendo que vai ser rápido"
+)
+
+[honestidadeTardia] decision (
+    "Lara diz que preferia a verdade desde o começo.",
+    concordar, "concordar e seguir com sinceridade",
+    seDefender, "dizer que todo mundo exagera um pouco"
+)
+
+[momentoBom] decision (
+    "O momento fica bom, mas delicado.",
+    comentarMusica, "comentar a música com sinceridade",
+    transformarCantada, "fazer uma cantada usando a música"
+)
+
+[pressa] decision (
+    "Ela colocou um limite claro.",
+    recuarComRespeito, "recuar e continuar conversando",
+    justificarPressa, "dizer que só tentou ser direto"
+)
+
+[equilibrio] decision (
+    "Agora a conversa parece ir para os dois lados.",
+    demonstrarInteresse, "demonstrar interesse pelo que ela conta",
+    competirHistoria, "responder cada história com uma melhor"
+)
+
+[proximidade] decision (
+    "A conversa ficou mais íntima sem ficar pesada.",
+    convidarLugarCalmo, "convidar para pegar ar na calçada",
+    elogiarMomento, "dizer que gosta de conversar com ela"
+)
+
+[erroConselho] decision (
+    "Você percebe que interpretou mal.",
+    reconhecerErro, "reconhecer o erro e parar de aconselhar",
+    explicarIntencao, "explicar longamente que só queria ajudar"
+)
+
+[clareza] decision (
+    "Ela parece avaliar sua sinceridade.",
+    darEspaco, "dar espaço para ela responder",
+    pedirResposta, "pedir para ela dizer logo se tem chance"
+)
+
+[personagemFalha] decision (
+    "Você pode abandonar a pose ou insistir nela.",
+    abandonarPose, "abandonar a pose e admitir o nervosismo",
+    dobrarPose, "continuar fazendo personagem"
+)
+
+[falarNormal] text (
+    "Você fala sobre a festa, a escola, música e planos sem tentar impressionar.
+    Aos poucos a conversa deixa de parecer uma tentativa e vira encontro.",
+    finalBom
+)
+
+[pedirContatoLogo] text (
+    "Você pede o contato rápido demais.
+    Lara hesita e diz que talvez depois.
+    A conversa continua, mas fica com gosto de cobrança.",
+    finalAmbiguo
+)
+
+[compartilharAlgo] text (
+    "Você conta que também quase não veio porque estava inseguro.
+    Lara ri baixo.
+    — Então nós dois estávamos fingindo normalidade.",
+    finalBom
+)
+
+[tocarNoAssunto] text (
+    "Você pergunta se ela está solteira.
+    Ela ergue a sobrancelha.
+    — Essa foi sua transição natural de assunto?",
+    finalAmbiguo
+)
+
+[aceitarNao] text (
+    "Você aceita sem mudar o rosto.
+    — Tranquilo. A gente fica por aqui então.
+    Lara parece notar que você não levou para o ego.",
+    finalBom
+)
+
+[insistirDanca] text (
+    "Você insiste mais uma vez.
+    Lara dá um passo para trás.
+    — Eu já disse não.
+    A palavra pesa mais do que a música.",
+    finalRuim
+)
+
+[concordar] text (
+    "Você concorda.
+    — Justo. Vou tentar não vender uma versão falsa de mim.
+    Lara sorri e coloca outra música para tocar.",
+    finalBom
+)
+
+[seDefender] text (
+    "Você tenta normalizar a mentira.
+    Lara dá de ombros.
+    — Pode ser. Mas eu não curto começar assim.",
+    finalRuim
+)
+
+[comentarMusica] text (
+    "Você comenta que a música parece triste sem tentar ser profundo demais.
+    Lara concorda e conta quando ouviu aquela faixa pela primeira vez.",
+    finalBom
+)
+
+[transformarCantada] text (
+    "Você transforma o momento em cantada.
+    Lara ri, mas o encanto quebra um pouco.
+    Ainda dá para conversar, mas algo ficou artificial.",
+    finalAmbiguo
+)
+
+[recuarComRespeito] text (
+    "Você recua sem ficar estranho.
+    — Verdade, fui rápido. Vamos só conversar.
+    Lara aceita a mudança e o clima volta a ficar leve.",
+    finalBom
+)
+
+[justificarPressa] text (
+    "Você começa a explicar que não queria perder tempo.
+    Lara responde com educação, mas começa a procurar uma saída.",
+    finalRuim
+)
+
+[demonstrarInteresse] text (
+    "Você faz perguntas porque realmente quer ouvir.
+    Ela fala sobre desenho, planos e medo de escolher faculdade.
+    A conversa ganha ritmo próprio.",
+    finalBom
+)
+
+[competirHistoria] text (
+    "Cada coisa que ela conta vira uma chance de você contar algo maior.
+    Lara ri no começo, depois só concorda com a cabeça.",
+    finalRuim
+)
+
+[convidarLugarCalmo] text (
+    "Você aponta para a calçada.
+    — Quer pegar um ar ali fora? Sem sumir da festa.
+    Ela pensa um pouco e aceita.",
+    passeioCurto
+)
+
+[elogiarMomento] text (
+    "Você diz que está gostando de conversar com ela.
+    Lara olha para baixo sorrindo.
+    — Eu também. Achei que você fosse mais fechado.",
+    finalBom
+)
+
+[reconhecerErro] text (
+    "Você reconhece o erro.
+    — Verdade. Desculpa. Eu escutei como problema, não como desabafo.
+    Lara assente e a conversa se recupera.",
+    finalBom
+)
+
+[explicarIntencao] text (
+    "Você explica, explica e explica.
+    Quanto mais fala, mais parece que quer absolvição.
+    Lara responde pouco até a conversa acabar.",
+    finalRuim
+)
+
+[darEspaco] text (
+    "Você deixa o silêncio existir.
+    Lara respira, sorri pequeno e responde.
+    — Sem pressão assim eu topo continuar conversando.",
+    finalBom
+)
+
+[pedirResposta] text (
+    "Você pede uma resposta direta.
+    Lara perde a leveza.
+    — A gente está conversando há dez minutos. Não é entrevista.",
+    finalRuim
+)
+
+[abandonarPose] text (
+    "Você ri de si mesmo.
+    — Tá, ignore essa versão premium de vergonha alheia.
+    Lara ri junto e a conversa volta para um lugar honesto.",
+    finalBom
+)
+
+[dobrarPose] text (
+    "Você insiste na pose.
+    Lara olha para o celular e diz que precisa encontrar uma amiga.
+    A oportunidade termina antes de começar.",
+    finalRuim
+)
+
+[passeioCurto] decision (
+    "Na calçada a festa fica distante.
+    O vento ajuda, mas também deixa o silêncio mais evidente.",
+    perguntarContato, "perguntar se podem conversar outro dia",
+    tentarBeijo, "tentar beijar sem perguntar"
+)
+
+[perguntarContato] text (
+    "Você pergunta com calma.
+    — Posso te chamar depois? Gostei de conversar contigo.
+    Lara pega o celular e entrega para você digitar seu contato.",
+    finalBom
+)
+
+[tentarBeijo] text (
+    "Você se aproxima rápido demais.
+    Lara vira o rosto e se afasta.
+    — Não. Eu estava só conversando.
+    A volta para dentro parece muito mais longa.",
+    finalRuim
+)
+
+[finalBom] text (
+    "Final bom.
+    Você não venceu um jogo. Você construiu uma conversa.
+    Às vezes o sucesso é só alguém querer continuar depois.",
+    end
+)
+
+[finalAmbiguo] text (
+    "Final ambíguo.
+    Nada deu totalmente errado, mas também não virou o que podia virar.
+    Talvez ainda exista chance. Talvez tenha sido só uma noite.",
+    end
+)
+
+[finalRuim] text (
+    "Final ruim.
+    A conversa acabou porque você tentou controlar o resultado.
+    Interesse não se força. No máximo se cultiva.",
+    end
+)

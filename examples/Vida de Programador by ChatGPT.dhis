@@ -1,0 +1,169 @@
+[start] text (
+    "Era sexta-feira, 17h42.
+    Você já estava fechando a IDE quando chegou uma mensagem no chat.
+    O sistema nacional de pagamentos estava instável em produção.",
+    alerta
+)
+
+[alerta] decision (
+    "O gerente marcou você no canal e perguntou se dava para olhar rápido.",
+    olharRapido, "olhar rápido antes de ir embora",
+    pedirContexto, "pedir contexto antes de tocar em qualquer coisa"
+)
+
+[olharRapido] text (
+    "Você abre os logs com pressa.
+    Há milhares de erros iguais, todos ligados ao serviço de conciliação.
+    Um colega sugere reiniciar tudo e ver se volta.",
+    primeiraDecisao
+)
+
+[pedirContexto] text (
+    "Você pergunta o que mudou nas últimas horas.
+    Alguém lembra de uma configuração alterada perto das 16h.
+    A conversa muda de pânico para investigação.",
+    investigarConfig
+)
+
+[primeiraDecisao] decision (
+    "A pressão aumenta.
+    O painel mostra transações pendentes subindo a cada segundo.",
+    reiniciarTudo, "reiniciar todos os serviços agora",
+    verificarDependencias, "verificar dependências antes de agir"
+)
+
+[investigarConfig] decision (
+    "Você encontra uma variável nova apontando para o ambiente errado.",
+    corrigirConfig, "corrigir a configuração com revisão",
+    aplicarDireto, "aplicar a correção direto em produção"
+)
+
+[reiniciarTudo] text (
+    "Você reinicia os serviços principais.
+    Por cinco segundos tudo parece melhorar.
+    Depois o sistema inteiro começa a rejeitar novas transações.",
+    caos
+)
+
+[verificarDependencias] text (
+    "Você verifica as dependências antes de reiniciar.
+    O banco está saudável, mas uma fila está acumulando mensagens inválidas.
+    O problema parece menor do que parecia no começo.",
+    fila
+)
+
+[corrigirConfig] text (
+    "Você chama uma colega para revisar.
+    Ela confirma que a variável aponta para homologação.
+    A correção é simples, mas precisa ser aplicada com cuidado.",
+    deploySeguro
+)
+
+[aplicarDireto] text (
+    "Você aplica a variável correta direto em produção.
+    O serviço sobe, mas outro erro aparece.
+    Sem revisão, ninguém sabe se você corrigiu ou criou outro problema.",
+    incerteza
+)
+
+[caos] decision (
+    "O telefone do gerente começa a tocar sem parar.",
+    esconderErro, "ficar quieto e esperar alguém descobrir",
+    assumirErro, "assumir o erro e ajudar na recuperação"
+)
+
+[fila] decision (
+    "A fila pode ser limpa ou pausada para análise.",
+    limparFila, "limpar a fila imediatamente",
+    pausarFila, "pausar a fila e analisar algumas mensagens"
+)
+
+[deploySeguro] decision (
+    "A janela de risco é pequena.
+    Vocês podem aplicar a correção ou esperar autorização formal.",
+    aplicarComRevisao, "aplicar com revisão e registrar tudo",
+    esperarAutorizacao, "esperar autorização mesmo com o sistema instável"
+)
+
+[incerteza] decision (
+    "O gerente pergunta exatamente o que foi alterado.",
+    explicarTudo, "explicar exatamente o que você fez",
+    responderVago, "dar uma resposta vaga para ganhar tempo"
+)
+
+[esconderErro] text (
+    "Você fica em silêncio.
+    A equipe perde vinte minutos investigando a causa errada.
+    Quando descobrem o reinício, a confiança já caiu junto com o sistema.",
+    finalRuim
+)
+
+[assumirErro] text (
+    "Você avisa o que fez.
+    A equipe reverte a ordem dos serviços e estabiliza parte da operação.
+    O prejuízo existe, mas ao menos a recuperação começa cedo.",
+    finalAmbiguo
+)
+
+[limparFila] text (
+    "Você limpa a fila sem conferir as mensagens.
+    O painel fica verde por alguns minutos.
+    Depois o financeiro percebe que há transações sumidas.",
+    finalRuim
+)
+
+[pausarFila] text (
+    "Você pausa a fila e analisa três mensagens.
+    Todas têm o mesmo campo quebrado vindo de uma integração externa.
+    A equipe isola a integração e o sistema volta ao normal.",
+    finalBom
+)
+
+[aplicarComRevisao] text (
+    "Vocês aplicam a correção juntos.
+    Os erros caem lentamente até zerar.
+    Você fecha a IDE às 18h11 como se o mundo não quase tivesse acabado.",
+    finalBom
+)
+
+[esperarAutorizacao] text (
+    "Vocês esperam autorização formal.
+    A correção era certa, mas a demora aumenta a fila e gera retrabalho.
+    Ninguém cai, mas a sexta-feira termina com gosto de incidente.",
+    finalAmbiguo
+)
+
+[explicarTudo] text (
+    "Você explica a alteração, inclusive a parte feita sem revisão.
+    A equipe compara os logs e encontra o segundo problema.
+    O clima pesa, mas a situação ainda é recuperável.",
+    finalAmbiguo
+)
+
+[responderVago] text (
+    "Você responde de forma vaga.
+    O gerente pede auditoria dos comandos.
+    Cinco minutos depois todos sabem o que você tentou esconder.",
+    finalRuim
+)
+
+[finalBom] text (
+    "Final bom.
+    O sistema estabiliza, ninguém vira notícia e você aprende mais uma coisa.
+    Sexta-feira em produção só combina com calma, log e revisão.",
+    end
+)
+
+[finalAmbiguo] text (
+    "Final ambíguo.
+    O sistema sobrevive, mas o susto vira pauta da retrospectiva.
+    Você vai para casa com a sensação de que escapou por pouco.",
+    end
+)
+
+[finalRuim] text (
+    "Final ruim.
+    O sistema cai, a sala de crise abre e seu nome aparece nos logs.
+    O deploy era pequeno. A consequência não.",
+    end
+)
