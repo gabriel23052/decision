@@ -15,14 +15,23 @@ public class Application {
         }
 
         UI.welcome();
+
+        if (availableStories.length == 0) {
+            UI.emptyStories();
+            return;
+        }
+
         int menuOption = UI.historyMenu(availableStories);
 
         if (menuOption == 0) {
+            UI.goodbye();
             return;
         }
 
         String dhisFile = filesystemHandler.getHistoryFileContent(availableStories[menuOption - 1]);
         UI.log(dhisFile);
+
+        UI.goodbye();
     }
 }
 

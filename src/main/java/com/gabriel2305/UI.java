@@ -67,6 +67,14 @@ public final class UI {
         UI.blankLine();
     }
 
+    public static void goodbye() {
+        UI.blankLine();
+        UI.printLn("Obrigado por jogar o Decision", TextAlignment.CENTER);
+        UI.printLn("Desenvolvido por Gabriel Pereira", TextAlignment.CENTER);
+        UI.printLn("https://github.com/gabriel23052", TextAlignment.CENTER);
+        UI.line();
+    }
+
     public static int historyMenu(String[] stories) {
         UI.printLn("Escolha a história", TextAlignment.CENTER);
         UI.blankLine();
@@ -83,5 +91,12 @@ public final class UI {
             }
             return option;
         }
+    }
+
+    public static void emptyStories() {
+        UI.printLn("Ops, parece que não há nenhuma história no diretório ):", TextAlignment.CENTER);
+        UI.printLn("Verifique as instruções do repositório do projeto para prosseguir:", TextAlignment.CENTER);
+        UI.printLn("https://github.com/gabriel23052", TextAlignment.CENTER);
+        UI.line();
     }
 }
