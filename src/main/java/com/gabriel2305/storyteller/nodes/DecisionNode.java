@@ -1,6 +1,8 @@
-package com.gabriel2305.storyteller;
+package com.gabriel2305.storyteller.nodes;
 
 import com.gabriel2305.UI;
+import com.gabriel2305.storyteller.Option;
+import com.gabriel2305.storyteller.StoryExecutable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ public class DecisionNode implements StoryExecutable {
 
     @Override
     public void execute() {
-        int option = 0;
+        int option;
         UI.printLn(text);
         UI.blankLine();
         for (int i = 0; i < options.size(); i++) {
@@ -37,6 +39,7 @@ public class DecisionNode implements StoryExecutable {
         }
         Option chosenOption = options.get(option - 1);
         nextNode = chosenOption.gotoId();
+        UI.blankLine();
         UI.printLn("Você escolheu: " + chosenOption.text());
     }
 

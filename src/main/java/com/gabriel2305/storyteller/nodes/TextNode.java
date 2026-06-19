@@ -1,6 +1,7 @@
-package com.gabriel2305.storyteller;
+package com.gabriel2305.storyteller.nodes;
 
 import com.gabriel2305.UI;
+import com.gabriel2305.storyteller.StoryExecutable;
 
 public class TextNode implements StoryExecutable {
 

@@ -1,10 +1,10 @@
 package com.gabriel2305.parser;
 
 import com.gabriel2305.exceptions.ParserException;
-import com.gabriel2305.storyteller.DecisionNode;
+import com.gabriel2305.storyteller.nodes.DecisionNode;
 import com.gabriel2305.storyteller.StoryExecutable;
 import com.gabriel2305.storyteller.Option;
-import com.gabriel2305.storyteller.TextNode;
+import com.gabriel2305.storyteller.nodes.TextNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
