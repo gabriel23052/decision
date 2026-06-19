@@ -1,38 +1,28 @@
 package com.gabriel2305;
 
-import com.gabriel2305.exceptions.ParserException;
-import com.gabriel2305.parser.DhisParser;
-import com.gabriel2305.parser.Fragment;
-import com.gabriel2305.parser.FragmentParser;
-import com.gabriel2305.storyteller.HistoryExecutable;
-
-import java.io.IOException;
-import java.util.List;
+import com.gabriel2305.exceptions.FilesystemException;
 
 public class Application {
 
-    public void start() throws IOException {
+    public void start() {
         FilesystemHandler filesystemHandler = new FilesystemHandler();
-        String[] availableStories = filesystemHandler.getAvailableStories().toArray(new String[0]);
-
-        UI.welcome();
-        int option = UI.historyMenu(availableStories);
-
-        String selectedHistory = availableStories[option - 1];
-        UI.log("Selected: " + selectedHistory);
-        UI.log("Trying create fragments");
-
-        DhisParser dhisParser = new DhisParser(filesystemHandler.getHistoryFileContent(selectedHistory));
-
+        String[] availableStories = new String[0];
         try {
-            List<Fragment> fragments = dhisParser.createFragments();
-            UI.log(fragments);
-            FragmentParser fragmentParser = new FragmentParser(fragments);
-            List<HistoryExecutable> historyList =  fragmentParser.createHistory();
-            UI.log(historyList);
-        } catch (ParserException e) {
+            filesystemHandler.readStoriesDirectory();
+            availableStories = filesystemHandler.getAvailableStories();
+        } catch (FilesystemException e) {
             UI.error(e.getMessage());
         }
+
+        UI.welcome();
+        int menuOption = UI.historyMenu(availableStories);
+
+        if (menuOption == 0) {
+            return;
+        }
+
+        String dhisFile = filesystemHandler.getHistoryFileContent(availableStories[menuOption - 1]);
+        UI.log(dhisFile);
     }
 }
 

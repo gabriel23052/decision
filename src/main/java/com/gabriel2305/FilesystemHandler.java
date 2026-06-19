@@ -7,21 +7,50 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Stream;
 
 public final class FilesystemHandler {
 
-    private final Path STORIES_PATH = Path.of(System.getenv("APPDATA"), "decision");
-
     private final Map<String, Path> storiesMap = new HashMap<>();
 
-    FilesystemHandler() throws IOException {
-        if (!Files.exists(STORIES_PATH)) {
-            Files.createDirectory(STORIES_PATH);
-            return;
+    private Path getDataDirectory() {
+        String os = System.getProperty("os.name").toLowerCase();
+        String APP_NAME = "decision";
+
+        if (os.contains("win")) {
+            String appData = System.getenv("APPDATA");
+
+            if (appData == null || appData.isEmpty()) {
+                throw new FilesystemException("APPDATA environment variable not found");
+            }
+
+            return Path.of(appData, APP_NAME);
         }
-        try (Stream<Path> filesInDirectory = Files.list(STORIES_PATH)) {
+
+        if (os.contains("linux")) {
+            String xdgDataHome = System.getenv("XDG_DATA_HOME");
+
+            if (xdgDataHome != null && !xdgDataHome.isBlank()) {
+                return Path.of(xdgDataHome, APP_NAME);
+            }
+
+            return Path.of(System.getProperty("user.home"), ".local", "share", APP_NAME);
+        }
+
+        throw new FilesystemException("OS not supported: " + os);
+    }
+
+    public void readStoriesDirectory() throws FilesystemException {
+        Path storiesPath = getDataDirectory();
+        if (!Files.exists(storiesPath)) {
+            try {
+                Files.createDirectory(storiesPath);
+                return;
+            } catch (IOException e) {
+                throw new FilesystemException("Failed while trying to create the stories directory");
+            }
+        }
+        try (Stream<Path> filesInDirectory = Files.list(storiesPath)) {
             filesInDirectory
                     .filter(fileInDirectory -> fileInDirectory
                             .getFileName()
@@ -34,15 +63,23 @@ public final class FilesystemHandler {
                                     .toString()
                                     .replaceAll(".dhis", "")
                             , dhisFile));
+        } catch (IOException e) {
+            throw new FilesystemException("Failed while trying to read the contents of stories directory");
         }
     }
 
-    public Set<String> getAvailableStories() {
-        return storiesMap.keySet();
+    public String[] getAvailableStories() {
+        return storiesMap.keySet().toArray(new String[0]);
     }
 
-    public String getHistoryFileContent(String history) throws FilesystemException, IOException {
-        if (!storiesMap.containsKey(history)) throw new FilesystemException("History file does not exist");
-        return Files.readString(storiesMap.get(history));
+    public String getHistoryFileContent(String history) {
+        if (!storiesMap.containsKey(history)) {
+            throw new FilesystemException("History file does not exist");
+        }
+        try {
+            return Files.readString(storiesMap.get(history));
+        } catch (IOException e) {
+            throw new FilesystemException("Failed while trying to read the history file content");
+        }
     }
 }
