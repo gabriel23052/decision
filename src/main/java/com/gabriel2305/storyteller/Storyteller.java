@@ -37,6 +37,7 @@ public class Storyteller {
                 throw new StorytellerException("Node not found: " + nextNodeId);
             }
             actualNode.execute();
+            UI.blankLine();
             String next = actualNode.getNextNodeId();
             if (next == null) {
                 throw new StorytellerException("Node returned null to nextNodeId");
