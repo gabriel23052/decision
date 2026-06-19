@@ -20,6 +20,11 @@ public class TextNode implements HistoryExecutable {
     }
 
     @Override
+    public String[] getExternalReferences() {
+        return new String[] { gotoId };
+    }
+
+    @Override
     public String getId() {
         return id;
     }

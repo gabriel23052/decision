@@ -4,5 +4,6 @@ public interface HistoryExecutable {
 
     void execute();
     String getId();
+    String[] getExternalReferences();
 
 }

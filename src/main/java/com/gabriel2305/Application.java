@@ -2,10 +2,12 @@ package com.gabriel2305;
 
 import com.gabriel2305.exceptions.FilesystemException;
 import com.gabriel2305.exceptions.ParserException;
+import com.gabriel2305.exceptions.StorytellerException;
 import com.gabriel2305.parser.DhisParser;
 import com.gabriel2305.parser.Fragment;
 import com.gabriel2305.parser.FragmentParser;
 import com.gabriel2305.storyteller.HistoryExecutable;
+import com.gabriel2305.storyteller.Storyteller;
 
 import java.util.Map;
 
@@ -16,6 +18,7 @@ public class Application {
         String[] availableStories = new String[0];
         DhisParser dhisParser = new DhisParser();
         FragmentParser fragmentParser = new FragmentParser();
+        Storyteller storyteller = new Storyteller();
 
         try {
             filesystemHandler.readStoriesDirectory();
@@ -55,9 +58,13 @@ public class Application {
             UI.error(e.getMessage());
         }
 
-        if (historyMap != null) {
-            historyMap.forEach((key, value) -> UI.log(key + " -> " + value));
+        storyteller.setHistoryMap(historyMap);
+        try {
+            storyteller.start();
+        } catch (StorytellerException e) {
+            UI.error(e.getMessage());
         }
+
         UI.goodbye();
     }
 }

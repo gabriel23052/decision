@@ -24,6 +24,14 @@ public class DecisionNode implements HistoryExecutable {
     }
 
     @Override
+    public String[] getExternalReferences() {
+        return options
+                .stream()
+                .map(Option::gotoId)
+                .toArray(String[]::new);
+    }
+
+    @Override
     public String toString() {
         return "Decision(\"" + text.substring(0, Math.min(text.length(), 8)) + "...\")";
     }
