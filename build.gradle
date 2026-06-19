@@ -26,6 +26,16 @@ test {
     }
 }
 
+tasks.named("startScripts") {
+    doLast {
+        def batFile = windowsScript
+        batFile.text = batFile.text.replaceFirst(
+                "@echo off",
+                "@echo off\r\nchcp 65001 > nul"
+        )
+    }
+}
+
 run {
     standardInput = System.in
     jvmArgs = ["-Dfile.encoding=UTF-8", "-Dstdout.encoding=UTF-8"]
