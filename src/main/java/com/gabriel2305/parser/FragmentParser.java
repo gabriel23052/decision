@@ -16,10 +16,10 @@ public class FragmentParser {
     private String actualNodeType;
     private FragmentParserState state = FragmentParserState.IDLE;
 
-    private final Fragment[] fragments;
+    private Fragment[] fragments = null;
     private final List<HistoryExecutable> historyNodes = new ArrayList<>();
 
-    public FragmentParser(Fragment[] fragments) {
+    public void setFragments(Fragment[] fragments) {
         this.fragments = fragments;
     }
 
@@ -31,7 +31,11 @@ public class FragmentParser {
         return state == targetState && targetType == getActualFragment().type();
     }
 
-    public List<HistoryExecutable> createHistory() {
+    public HistoryExecutable[] createHistory() {
+        if (fragments == null || fragments.length == 0) {
+            throw new ParserException("Fragments not set");
+        }
+
         while (index < fragments.length) {
 
             if (isAValidFragment(FragmentParserState.IDLE, FragmentType.OPENING_SQUARE_BRACKET)) {
@@ -74,7 +78,7 @@ public class FragmentParser {
             throw new ParserException("Unexpected end");
         }
 
-        return historyNodes;
+        return historyNodes.toArray(new HistoryExecutable[0]);
     }
 
     private void nodeDelegator() {

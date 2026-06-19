@@ -94,7 +94,8 @@ public class FragmentParserTest {
     void shouldThrowExceptionForInvalidDhis() {
         for(String invalidStories : INVALID_STORIES) {
             Fragment[] fragments = getFragments(invalidStories);
-            FragmentParser fragmentParser = new FragmentParser(fragments);
+            FragmentParser fragmentParser = new FragmentParser();
+            fragmentParser.setFragments(fragments);
             assertThrows(ParserException.class, fragmentParser::createHistory);
         }
     }
@@ -104,7 +105,8 @@ public class FragmentParserTest {
     void shouldDoesNotThrowExceptionForInvalidDhis() {
         for(String validStories : VALID_STORIES) {
             Fragment[] fragments = getFragments(validStories);
-            FragmentParser fragmentParser = new FragmentParser(fragments);
+            FragmentParser fragmentParser = new FragmentParser();
+            fragmentParser.setFragments(fragments);
             assertDoesNotThrow(fragmentParser::createHistory);
         }
     }

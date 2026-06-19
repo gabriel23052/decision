@@ -4,6 +4,8 @@ import com.gabriel2305.exceptions.FilesystemException;
 import com.gabriel2305.exceptions.ParserException;
 import com.gabriel2305.parser.DhisParser;
 import com.gabriel2305.parser.Fragment;
+import com.gabriel2305.parser.FragmentParser;
+import com.gabriel2305.storyteller.HistoryExecutable;
 
 public class Application {
 
@@ -11,6 +13,7 @@ public class Application {
         FilesystemHandler filesystemHandler = new FilesystemHandler();
         String[] availableStories = new String[0];
         DhisParser dhisParser = new DhisParser();
+        FragmentParser fragmentParser = new FragmentParser();
 
         try {
             filesystemHandler.readStoriesDirectory();
@@ -41,7 +44,17 @@ public class Application {
         } catch (ParserException e) {
             UI.error(e.getMessage());
         }
-        UI.log(fragments);
+
+        fragmentParser.setFragments(fragments);
+        HistoryExecutable[] history = new HistoryExecutable[0];
+        try {
+            history = fragmentParser.createHistory();
+        } catch (ParserException e) {
+            UI.error(e.getMessage());
+        }
+        for(HistoryExecutable executable : history) {
+            UI.log(executable);
+        }
 
         UI.goodbye();
     }

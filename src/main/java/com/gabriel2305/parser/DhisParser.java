@@ -34,8 +34,8 @@ public class DhisParser {
     }
 
     public Fragment[] createFragments() throws ParserException {
-        if (dhisChars == null) {
-            throw new ParserException("No dhis was set");
+        if (dhisChars == null || dhisChars.length == 0) {
+            throw new ParserException("Dhis not set");
         }
         while (index < dhisChars.length) {
             char actualChar = getActualChar();
